@@ -16,7 +16,10 @@ export class Favorites {
 
   async add(username) {
     try {
-      const userExists = this.entries.find((entry) => entry.login === username)
+      const lowercaseUsername = username.toLowerCase() // Convertendo para minúsculas
+      const userExists = this.entries.find(
+        (entry) => entry.login.toLowerCase() === lowercaseUsername
+      )
 
       if (userExists) {
         throw new Error("Usuário já cadastrado")
@@ -75,27 +78,31 @@ export class FavoritesView extends Favorites {
   update() {
     this.removeAllTr()
 
-    this.entries.forEach((user) => {
-      const row = this.createRow()
+    if (this.entries.length === 0) {
+      this.showNoFavoritesMessage()
+    } else {
+      this.entries.forEach((user) => {
+        const row = this.createRow()
 
-      row.querySelector(
-        ".user img"
-      ).src = `https://github.com/${user.login}.png`
-      this.tbody.append(row)
-      row.querySelector(".user img").alt = `Imagem de ${user.name}`
-      row.querySelector(".user a").href = `https://github.com/${user.login}`
-      row.querySelector(".user p").textContent = user.name
-      row.querySelector(".user span").textContent = user.login
-      row.querySelector(".repositories").textContent = user.public_repos
-      row.querySelector(".followers").textContent = user.followers
+        row.querySelector(
+          ".user img"
+        ).src = `https://github.com/${user.login}.png`
+        this.tbody.append(row)
+        row.querySelector(".user img").alt = `Imagem de ${user.name}`
+        row.querySelector(".user a").href = `https://github.com/${user.login}`
+        row.querySelector(".user p").textContent = user.name
+        row.querySelector(".user span").textContent = user.login
+        row.querySelector(".repositories").textContent = user.public_repos
+        row.querySelector(".followers").textContent = user.followers
 
-      row.querySelector(".remove").onclick = () => {
-        const isOk = confirm("Tem certez que deseja deletar essa linha?")
-        if (isOk) {
-          this.delete(user)
+        row.querySelector(".remove").onclick = () => {
+          const isOk = confirm("Tem certez que deseja deletar essa linha?")
+          if (isOk) {
+            this.delete(user)
+          }
         }
-      }
-    })
+      })
+    }
   }
 
   createRow() {
@@ -112,7 +119,7 @@ export class FavoritesView extends Favorites {
           <td class="repositories"></td>
           <td class="followers"></td>
           <td>
-            <button class="remove">&times;</button>
+            <button class="remove">Remover</button>
           </td>
     `
     tr.innerHTML = content
@@ -124,5 +131,17 @@ export class FavoritesView extends Favorites {
     this.tbody.querySelectorAll("tr").forEach((tr) => {
       tr.remove()
     })
+  }
+  showNoFavoritesMessage() {
+    const row = document.createElement("tr")
+    row.innerHTML = `
+    <td colspan="4" class="show-no-favorites">
+    <div class="no-favorites">
+      <img src="./assets/Estrela.svg" alt="Nenhum favorito ainda" style="max-height: 100%; max-width: 100%;">
+      <p>Nenhum favorito ainda</p>
+      </div>
+    </td>
+  `
+    this.tbody.append(row)
   }
 }
