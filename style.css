@@ -6,20 +6,19 @@
 
 :root {
   font-size: 62.5%;
-  --ff-primary: 'Poppins', sans-serif;
+  --ff-primary: 'Roboto', sans-serif;
+  --ff-secondary: 'Roboto Mono', monospace;
   --text-color: #303030;
-
-  --hue: 194;
-  --primary-color: hsl(var(--hue), 100%, 63%)
 }
 
 body {
   font-size: 1.6rem;
   color: var(--text-color);
-  background-color: hsl(192, 100%, 99%);
+  background-color: #000;
 }
 
-body * {
+body *,
+button {
   font-family: var(--ff-primary);
 }
 
@@ -36,18 +35,17 @@ body * {
 }
 
 #app {
-  max-width: 500px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 2rem;
-
 }
 
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 11.5rem 0 8.7rem;
 
-  margin: 2.5rem 0;
 }
 
 header h1 {
@@ -59,81 +57,136 @@ header h1 {
 .search {
   display: flex;
   align-items: center;
-
+  gap: .8rem;
 }
 
 .search input {
-  height: 3.2rem;
-  border: 1px solid #ccc;
-  border-radius: .4rem 0 0 .4rem;
-  padding: 0 .8rem;
+  max-height: 4.8rem;
+  width: 46.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1.6rem;
+  background-color: hsla(191, 65%, 7%, 1);
+  color: white;
+  font-weight: bold;
+  font-family: var(--ff-primary);
+}
+
+.search input::placeholder {
+  color: #7C7C8A;
 }
 
 .search button {
-  background-color: var(--primary-color);
-  border-radius: 0 .4rem .4rem 0;
-  height: 3.2rem;
+  background-color: #065E7C;
+  border-radius: .5rem;
+
   border: none;
-  padding: 0 1rem;
+  padding: 1.2rem 3.2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+
+  max-width: max-content;
+
+  gap: 0.8rem;
 
   cursor: pointer;
 }
 
+.search button img {
+  max-width: 2.4rem;
+}
+
+.search button svg {
+  fill: #fff;
+}
+
 .search button:hover {
-  filter: brightness(1.1);
+  color: #065E7C;
+  background-color: #fff;
+}
+
+.search button:hover svg {
+  fill: #065E7C;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-
-  box-shadow: 0 1rem 2rem -1rem rgba(0, 0, 0, .3);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 table * {
   font-size: 1.4rem;
-  color: var(--text-color);
-
+  color: #E1E1E6;
 }
 
+.table-container {
+  border: 1px solid #4A808C;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+
 table th {
-  background-color: var(--primary-color);
+  background-color: hsla(194, 72%, 13%, 1);
   text-align: left;
   font-weight: normal;
-  padding: 1.5rem;
-
+  padding: 16px 24px 16px 40px;
+  font-size: 2rem;
 }
 
 table th:first-child {
-  border-top-left-radius: .4rem;
+  border-top-left-radius: 12px;
+  width: 50.4rem;
 }
 
 table th:last-child {
-  border-top-right-radius: .4rem;
+  border-top-right-radius: 12px;
 }
 
+
 table tr:nth-child(odd) {
-  background: #ddd;
+  background: rgba(6, 22, 27, 0.50);
 }
+
 table tr:nth-child(even) {
-  background: #eee;
+  background: hsla(192, 65%, 7%, 1);
+  border: 1px solid #4A808C;
+  border-left: none;
+  /* Remove a borda esquerda das linhas pares */
+  border-right: none;
+  /* Remove a borda direita das linhas pares */
 }
 
 table td {
-  padding: 1.5rem;
+  padding: 2.4rem 2.4rem 2.4rem 4rem;
   text-align: left;
-
+  color: #E1E1E6;
+  font-family: Roboto;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
 }
 
 td.user {
   display: flex;
   align-items: center;
   gap: 1rem;
+  width: 504px;
 }
 
 td.user img {
-  width: 5rem;
-  height: 5rem;
+  width: 5.6rem;
+  height: 5.6rem;
 
   object-fit: cover;
   border-radius: 50%;
@@ -145,13 +198,45 @@ td.user a {
 
 td.user a p {
   font-weight: bold;
+  font-size: 2rem;
+  line-height: 3.2rem;
+}
 
+td.user a span {
+  font-weight: 400;
+  line-height: 3.2rem;
 }
 
 td .remove {
   background: none;
   border: none;
 
-  color: red;
+  color: #F75A68;
   cursor: pointer;
+}
+
+.show-no-favorites {
+  text-align: center;
+  height: 624px;
+}
+
+.no-favorites {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 6rem;
+}
+
+.no-favorites img {
+  width: 13.2rem;
+  height: 12.5rem;
+}
+
+.no-favorites p {
+  color: #4E5455;
+  font-size: 4rem;
+  font-family: "Roboto Mono";
+  font-weight: 700;
+  line-height: 2.5rem;
 }
